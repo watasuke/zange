@@ -8,47 +8,61 @@
 <body>
 
 <h1>懺悔.com</h1>
-
-<form action="zangeregist.php" method="post">
-  <textarea name="comment" cols="50" rows="8"></textarea><br />
-  <br />
-  <input type="submit" value="懺悔する" />
+<!-- データ入力フォーム -->
+<form method="POST" action="zangecheck.php">
+  <table border="0">
+    <tr>
+      <td>タイトル</td>
+      <td><input type="text" name="title" size="30"></td>
+    </tr>
+    <tr>
+      <td>内容</td>
+      <td>
+      <textarea rows="8" cols="50" name="content"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+      <input type="submit" value="確認する">
+      </td>
+    </tr>
+  </table>
 </form>
-
-
-
 <?php
+// 接続設定
+$dbtype = "mysql";
+$sv = "localhost";
+$dbname = "zangedb";
+$user = "root";
+$pass = "";
 
-$con = mysql_connect('localhost', 'root', '');
-if (!$con) {
-  exit('データベースに接続できませんでした。');
+// データベースに接続
+$dsn = "$dbtype:dbname=$dbname;host=$sv";
+$conn = new PDO($dsn, $user, $pass);
+
+// データの取得
+$sql = "SELECT * FROM message ORDER BY no DESC";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+
+// 取得したデータを一覧表示
+while ($row = $stmt->fetch()) {
+    echo "<hr>{$row["no"]}：";
+    if (!empty($row["m_mail"])) {
+        echo "<a href=\"mailto:" . $row["m_mail"] . "\">"
+        . $row["title"] . "</a>";
+    }
+    else {
+        echo $row["title"];
+    }
+    echo "(" . date("Y/m/d H:i", strtotime($row["datetime"])) . ")";
+    echo "<p>" . nl2br($row["content"]) . "</p>";
+
+    // 変更・削除・詳細表示画面へのリンク
+    echo "<a href=\"update.php?no=" . $row["no"] . "\">変更</a>　";
+    echo "<a href=\"delete-confirm.php?no=" . $row["no"] . "\">削除</a>　";
+    echo "<a href=\"detail.php?no=" . $row["no"] . "\">詳細</a>　";
 }
-
-$result = mysql_select_db('zangedb', $con);
-if (!$result) {
-  exit('データベースを選択できませんでした。');
-}
-
-$result = mysql_query('SET NAMES utf8', $con);
-if (!$result) {
-  exit('文字コードを指定できませんでした。');
-}
-
-$comment   = $_REQUEST['comment'];
-
-
-$result = mysql_query("INSERT INTO messages(no, title, content, datetime) VALUES('$no', '$title', '$content', '$datetime')", $con);
-if (!$result) {
-  exit('データを登録できませんでした。');
-}
-
-$con = mysql_close($con);
-if (!$con) {
-  exit('データベースとの接続を閉じられませんでした。');
-}
-
 ?>
-<p>登録が完了しました。<br /><a href="index.html">戻る</a></p>
-
 </body>
 </html>

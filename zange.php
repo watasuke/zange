@@ -24,7 +24,7 @@ if (!$con) {
   exit('データベースに接続できませんでした。');
 }
 
-$result = mysql_select_db('phpdb', $con);
+$result = mysql_select_db('zangedb', $con);
 if (!$result) {
   exit('データベースを選択できませんでした。');
 }
@@ -37,7 +37,7 @@ if (!$result) {
 $comment   = $_REQUEST['comment'];
 
 
-$result = mysql_query("INSERT INTO address(no, name, tel) VALUES('$no', '$name', '$tel')", $con);
+$result = mysql_query("INSERT INTO messages(no, title, content, datetime) VALUES('$no', '$title', '$content', '$datetime')", $con);
 if (!$result) {
   exit('データを登録できませんでした。');
 }

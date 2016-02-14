@@ -41,15 +41,15 @@ $dsn = "$dbtype:dbname=$dbname;host=$sv";
 $conn = new PDO($dsn, $user, $pass);
 
 // データの取得
-$sql = "SELECT * FROM message ORDER BY no DESC";
+$sql = "SELECT * FROM messages ORDER BY no DESC";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 
 // 取得したデータを一覧表示
 while ($row = $stmt->fetch()) {
     echo "<hr>{$row["no"]}：";
-    if (!empty($row["m_mail"])) {
-        echo "<a href=\"mailto:" . $row["m_mail"] . "\">"
+    if (empty($row["title"])) {
+        echo "<a href=\"mailto:" . $row["title"] . "\">"
         . $row["title"] . "</a>";
     }
     else {
@@ -61,8 +61,9 @@ while ($row = $stmt->fetch()) {
     // 変更・削除・詳細表示画面へのリンク
     echo "<a href=\"update.php?no=" . $row["no"] . "\">変更</a>　";
     echo "<a href=\"delete-confirm.php?no=" . $row["no"] . "\">削除</a>　";
-    echo "<a href=\"detail.php?no=" . $row["no"] . "\">詳細</a>　";
+    echo "<a href=\"zangedetail.php?no=" . $row["no"] . "\">詳細</a>　";
 }
+
 ?>
 </body>
 </html>

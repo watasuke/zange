@@ -44,6 +44,6 @@ session_destroy();
 <body>
 <p>削除完了画面</p>
 <p><?php echo $message; ?></p>
-<p><a href="index.php">トップページへ</a></p>
+<p><a href="zange.php">トップページへ</a></p>
 </body>
 </html>

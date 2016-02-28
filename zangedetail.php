@@ -43,5 +43,16 @@ $row = $stmt->fetch();
       </td>
     </tr>
   </table>
+
+<p>
+    <button onclick="countUpA();">許す</button>
+    <span id="forgiveOutputA" style="margin-left: 10px;">0</span>
+</p>
+<script type="text/javascript">
+var $countA = 0;
+function countUpA() {
+    document.getElementById( "forgiveOutputA" ).innerHTML = ++$countA;
+}
+</script>
 </body>
 </html>

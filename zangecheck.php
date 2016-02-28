@@ -3,8 +3,8 @@
 session_start();
 
 // 入力値の取得・検証・加工
-$title = chkString($_POST["title"], "名前");
-$content = chkString($_POST["content"], "メッセージ");
+$title = chkString($_POST["title"], "タイトル");
+$content = chkString($_POST["content"], "内容");
 
 // 入力値をセッション変数に格納
 $_SESSION["title"] = $title;

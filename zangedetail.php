@@ -34,6 +34,9 @@ $row = $stmt->fetch();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- BootstrapのJS読み込み -->
     <script src="js/bootstrap.min.js"></script>
+    <!-- 許すカウントのJS読み込み -->
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/count.js"></script>
 <title>懺悔詳細</title>
 </head>
 <body>
@@ -52,8 +55,8 @@ $row = $stmt->fetch();
   </table>
 
 <p>
-    <button type="button" class="btn btn-primary" onclick="countUpA();">許す</button>
-    <span id="forgivecount" style="margin-left: 10px;">0</span>
+    <button type="button" class="btn btn-success" id="btn01"><p><a href="javascript:void(0);">許す</a></p><span  id="forgivecount" style="margin-left: 10px;"></span></button>
+
 </p>
 
 </body>

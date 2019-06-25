@@ -1,3 +1,9 @@
+---
+name: Bug report
+about: Create a report to help us improve
+
+---
+
 ## 解決したい課題
 やることではなく、どういう問題を解決したいかを書いてください。
 
